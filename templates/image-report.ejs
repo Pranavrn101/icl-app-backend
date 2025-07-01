@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #fff;
+      color: #333;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .mawb {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .image-section {
+      margin-bottom: 30px;
+      page-break-inside: avoid;
+    }
+
+    .image-section img {
+      width: 100%;
+      max-height: 500px;
+      object-fit: contain;
+      border: 1px solid #ccc;
+      padding: 5px;
+      background: #f9f9f9;
+    }
+
+    .image-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Warehouse Cargo Image Report</h1>
+    <p class="mawb"><strong>MAWB Number:</strong> <%= mawb %></p>
+  </div>
+
+  <% if (images && images.length > 0) { %>
+    <% images.forEach((imgUrl, index) => { %>
+      <div class="image-section">
+        <div class="image-title">Image <%= index + 1 %>:</div>
+        <img src="<%= imgUrl %>" alt="Cargo Image <%= index + 1 %>" />
+      </div>
+    <% }) %>
+  <% } else { %>
+    <p>No images available for this MAWB number.</p>
+  <% } %>
+</body>
+</html>

@@ -1,7 +1,7 @@
 import express from "express";
-import pool from "../../Backend/db.js";
+import pool from "../db.js";
 // ✅ Correct for ESM — include .js extension
-import { generatePdfFromData } from "../../utils/generatedPdf.js";
+import { generatePdfFromData } from "../utils/generatedPdf.js";
 
 
 const router = express.Router();

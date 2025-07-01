@@ -1,6 +1,6 @@
 import express from "express";
 import pool from "../db.js";
-import { generateImagesPdf } from "../../utils/generateImagesPdf.js";
+import { generateImagesPdf } from "../utils/generateImagesPdf.js";
 
 const router = express.Router();
 

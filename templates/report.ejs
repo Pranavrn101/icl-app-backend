@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      color: #333;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      background-color: #142d6a;
+      color: white;
+      padding: 20px;
+    }
+
+    .logo img {
+      height: 60px;
+    }
+
+    .header-details {
+      text-align: right;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .shipment-info{
+      
+      text-align: right;
+      font-size: 14px;
+      line-height: 1.5;
+      }
+
+    .header-details .title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+     .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 0px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    .text-block {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .signature-block {
+      margin-top: 40px;
+    }
+
+    .signature-label {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .signature img {
+      height: 80px;
+      border: 1px solid #ccc;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 🔵 Header -->
+  <div class="header">
+    <div class="logo">
+      <img src="https://www.global-icl.com/wp-content/uploads/2023/06/cropped-ICL-TEXT-YELLOW-WHITE@0.75x.png" alt="ICL Logo" />
+    </div>
+    <div class="header-details">
+      <div class="company-info">
+      <strong>ICL UK</strong><br />
+      Mondial House, 2nd Floor<br />
+      5 Mondial Way, Heathrow UB3 SAR<br />
+      <small>VAT No: 849450791<br />Company Reg. No. 5230331</small>
+    </div>
+    </div>
+  </div>
+
+  <!-- 📋 Job Details Table -->
+ <div class="shipment-info">
+ <div><strong>Consol No:</strong> <%= report.consol_no || "N/A" %></div>
+      <div><strong>Shipment No:</strong> <%= report.shipment_no || "N/A" %></div>
+      </div>
+  <div class="section-title">Air Intake Report</div>
+  <table>
+    <tr><th>Importer</th><td><%= jobCard.importer %></td></tr>
+    <tr><th>Exporter</th><td><%= jobCard.exporter %></td></tr>
+    <tr><th>Estimated Date of Arrival</th><td><%= jobCard.eta %></td></tr>
+    <tr><th>Actual Date of Arrival</th><td><%= report.arrival_date %></td></tr>
+    <tr><th>Warehouse Arrival Time</th><td><%= report.warehouse_arrival_time %></td></tr>
+    <tr><th>Vehicle Temperature</th><td><%= report.vehicle_temperature %>°C</td></tr>
+    <tr><th>Is Trailer Clean & Odour Free?</th><td><%= report.trailer_clean ? "Yes" : "No" %></td></tr>
+    <tr><th>Is Trailer Free from Pests?</th><td><%= report.free_from_pests ? "Yes" : "No" %></td></tr>
+    <tr><th>MAWB Number</th><td><%= jobCard.mawb_number %></td></tr>
+    <tr><th>HAWB Number</th><td><%= jobCard.hawb_number || "N/A" %></td></tr>
+    <tr><th>Origin</th><td><%= jobCard.origin %></td></tr>
+    <tr><th>No. of Pieces Expected</th><td><%= jobCard.number_of_pieces %></td></tr>
+    <tr><th>No. of Pallets Arrived</th><td><%= report.pallet_count %></td></tr>
+    <tr><th>No. of Pieces Received</th><td><%= report.piece_count %></td></tr>
+    <tr><th>Organic Goods?</th><td><%= report.organic_goods ? "Yes" : "No" %></td></tr>
+  </table>
+
+  <!-- 🌡️ Temperature Table -->
+  <% if (report.items && report.items.length > 0) { %>
+    <div class="section-title">TEMPERATURE & PRODUCT RECORDED UPON ARRIVAL AT ICL UK</div>
+    <table>
+      <tr>
+        <th>Product / Varieties</th>
+        <th>Piece Count</th>
+        <th>Top Temp</th>
+        <th>Middle Temp</th>
+        <th>Bottom Temp</th>
+      </tr>
+      <% report.items.forEach((item) => { %>
+        <tr>
+          <td><%= item.product %></td>
+          <td><%= item.pieces %></td>
+          <td><%= item.topTemp %>°C</td>
+          <td><%= item.midTemp %>°C</td>
+          <td><%= item.bottomTemp %>°C</td>
+        </tr>
+      <% }) %>
+    </table>
+  <% } %>
+
+  <!-- 📝 Notes -->
+  <div class="text-block">
+    <strong>Shortages:</strong><br />
+    <%= report.shortages || "None" %>
+  </div>
+
+  <div class="text-block">
+    <strong>Damages:</strong><br />
+    <%= report.damages || "None" %>
+  </div>
+
+  <!-- 🧍‍♂️ Staff and ✍️ Signature -->
+  <div class="signature-block">
+    <div class="text-block">
+      <strong>Name:</strong> <%= report.staff_name %>
+    </div>
+
+    <% if (report.signature) { %>
+      <div class="text-block">
+        <strong>Sign:</strong><br />
+        <img class="signature" src="<%= report.signature %>" alt="Signature" />
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

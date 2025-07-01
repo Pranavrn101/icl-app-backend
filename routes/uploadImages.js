@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 router.post("/", upload.array("images"), (req, res) => {
-  const urls = req.files.map((file) => `http://localhost:3001/uploads/${file.filename}`)
+  const urls = req.files.map((file) => `http://192.168.1.7:3005/uploads/${file.filename}`)
   res.json({ urls })
 })
 

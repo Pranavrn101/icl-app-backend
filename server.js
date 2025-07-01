@@ -18,12 +18,15 @@ import { authenticateToken } from "./middleware/auth.js";
 const app = express();
 
 // ✅ Correct CORS setup
-app.use(cors({
-  origin: "http://localhost:3003",
-  methods: ["GET", "POST", "OPTIONS"],
-  credentials: true,
-}));
-
+// app.use(cors({
+//   origin: [
+//     "http://192.168.1.7:3003", // Office app
+//     "http://192.168.1.7:3000"  // Warehouse app - Fixed: added '//' after 'http:'
+//   ], 
+//   methods: ["GET", "POST", "OPTIONS"],
+//   credentials: true,
+// }));
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
@@ -39,6 +42,7 @@ app.use("/api/warehouse-staff", warehouseStaffRoutes);
 app.use("/api", pdfRoute);
 app.use("/api", imagePdfRoute);
 app.use("/api/report", sendEmailRoute);
+app.use("/api", loginRoutes);
 // app.use("/api", loginRoutes); ❌ You can remove this if you add login route below
 
 // ✅ Login route
@@ -90,9 +94,15 @@ app.get("/api/report/:mawb", async (req, res) => {
 });
 
 app.get("/api/healthcheck", (req, res) => {
+  console.log("✅ Healthcheck hit");
   res.send("Server is healthy");
 });
 
-app.listen(3001, () => {
-  console.log("Server is running on http://localhost:3001");
+
+// app.listen(3005, () => {
+//   console.log("Server is running on http://192.168.1.7:3005");
+// });
+
+app.listen(3005, '0.0.0.0', () => {
+  console.log('Server running on port 3005');
 });

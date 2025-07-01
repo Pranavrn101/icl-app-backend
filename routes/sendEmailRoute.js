@@ -1,7 +1,7 @@
 import express from "express"
 import nodemailer from "nodemailer"
-import { generatePdfFromData } from "../../utils/generatedPdf.js"
-import { generateImagesPdf } from "../../utils/generateImagesPdf.js"
+import { generatePdfFromData } from "../utils/generatedPdf.js"
+import { generateImagesPdf } from "../utils/generateImagesPdf.js"
 import pool from "../db.js"
 
 const router = express.Router()
